@@ -1,6 +1,5 @@
-package com.example.ticketselling.model;
+package com.example.ticketselling.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -10,11 +9,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "client")
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientDto {
+
     private int id;
 
     private String firstName;

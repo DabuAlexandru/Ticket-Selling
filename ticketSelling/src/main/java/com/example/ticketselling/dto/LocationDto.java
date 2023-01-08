@@ -1,6 +1,5 @@
-package com.example.ticketselling.model;
+package com.example.ticketselling.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @ToString
@@ -8,11 +7,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "location")
-public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class LocationDto {
+
     private int id;
 
     private String address;

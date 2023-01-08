@@ -1,7 +1,13 @@
 package com.example.ticketselling.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "seat")
 public class Seat {
@@ -20,55 +26,4 @@ public class Seat {
      the additional key provides an extra layer of separation for clarity
      */
     private String additionalKey;
-
-    public Seat(Location location, String key, String additionalKey) {
-        this.location = location;
-        this.key = key;
-        this.additionalKey = additionalKey;
-    }
-
-    public Seat() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getAdditionalKey() {
-        return additionalKey;
-    }
-
-    public void setAdditionalKey(String additionalKey) {
-        this.additionalKey = additionalKey;
-    }
-
-    @Override
-    public String toString() {
-        return "Seat{" +
-                "id=" + id +
-                ", location=" + location +
-                ", key='" + key + '\'' +
-                ", additionalKey='" + additionalKey + '\'' +
-                '}';
-    }
 }
