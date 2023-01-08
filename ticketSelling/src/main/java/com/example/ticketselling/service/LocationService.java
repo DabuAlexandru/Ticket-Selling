@@ -31,10 +31,10 @@ public class LocationService {
             location.setAddress(updatedLocation.getAddress());
         }
         if(!isNull(updatedLocation.getAddressDetails())) {
-            location.setAddress(updatedLocation.getAddressDetails());
+            location.setAddressDetails(updatedLocation.getAddressDetails());
         }
         if(!isNull(updatedLocation.getName())) {
-            location.setAddress(updatedLocation.getName());
+            location.setName(updatedLocation.getName());
         }
         if(updatedLocation.getMaxCapacity() != 0) {
             location.setMaxCapacity(updatedLocation.getMaxCapacity());
