@@ -32,7 +32,7 @@ public class BoughtTicketMapper {
         );
     }
 
-    public BoughtTicketDto convertFromDto(BoughtTicket boughtTicket) {
+    public BoughtTicketDto convertToDto(BoughtTicket boughtTicket) {
         if (isNull(boughtTicket)) {
             return null;
         }

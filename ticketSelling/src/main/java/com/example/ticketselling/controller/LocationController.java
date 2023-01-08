@@ -1,6 +1,6 @@
 package com.example.ticketselling.controller;
 
-import com.example.ticketselling.model.Location;
+import com.example.ticketselling.dto.LocationDto;
 import com.example.ticketselling.service.LocationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +18,18 @@ public class LocationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Location>> retrieveLocations() {
+    public ResponseEntity<List<LocationDto>> retrieveLocations() {
         return ResponseEntity.ok().body(locationService.retrieveLocations());
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<?> addLocation(@RequestBody Location location) {
-        return ResponseEntity.ok().body(locationService.saveLocation(location));
+    @PostMapping("/add")
+    public ResponseEntity<LocationDto> addLocation(@RequestBody LocationDto locationDto) {
+        return ResponseEntity.ok().body(locationService.saveLocation(locationDto));
     }
 
     @PutMapping("/edit/{locationId}")
-    public ResponseEntity<Location> editLocation(@PathVariable int locationId, @RequestBody Location editedLocation) {
-        return ResponseEntity.ok().body(locationService.updateLocation(locationId, editedLocation));
+    public ResponseEntity<LocationDto> editLocation(@PathVariable int locationId, @RequestBody LocationDto editedLocationDto) {
+        return ResponseEntity.ok().body(locationService.updateLocation(locationId, editedLocationDto));
     }
 
     @DeleteMapping("/delete/{locationId}")

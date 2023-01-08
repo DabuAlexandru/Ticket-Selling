@@ -1,11 +1,14 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.dto.EventDto;
+import com.example.ticketselling.mapper.EventMapper;
 import com.example.ticketselling.model.Event;
 import com.example.ticketselling.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -13,34 +16,40 @@ import static java.util.Objects.isNull;
 public class EventService {
     private final EventRepository eventRepository;
 
-    public EventService(EventRepository eventRepository) {
+    private final EventMapper eventMapper;
+
+    public EventService(EventRepository eventRepository, EventMapper eventMapper) {
         this.eventRepository = eventRepository;
+        this.eventMapper = eventMapper;
     }
 
-    public List<Event> retrieveEvents() {
-        return eventRepository.findAll();
+    public List<EventDto> retrieveEvents() {
+        return eventRepository.findAll()
+                .stream().map(eventMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 
-    public Event findEventById(int eventId) {
-        return eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found!"));
-    }
-
-    public Event updateEvent(int eventId, Event updatedEvent) {
+    public EventDto findEventById(int eventId) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found!"));
-        if(!isNull(updatedEvent.getName())) {
-            event.setName(updatedEvent.getName());
-        }
-        if(!isNull(updatedEvent.getDescription())) {
-            event.setDescription(updatedEvent.getDescription());
-        }
-        if(updatedEvent.getDuration() != 0) {
-            event.setDuration(updatedEvent.getDuration());
-        }
-        return eventRepository.save(event);
+        return eventMapper.convertToDto(event);
     }
 
-    public Event saveEvent(Event event) {
-        return eventRepository.save(event);
+    public EventDto updateEvent(int eventId, EventDto updatedEventDto) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found!"));
+        if (!isNull(updatedEventDto.getName())) {
+            event.setName(updatedEventDto.getName());
+        }
+        if (!isNull(updatedEventDto.getDescription())) {
+            event.setDescription(updatedEventDto.getDescription());
+        }
+        if (updatedEventDto.getDuration() != 0) {
+            event.setDuration(updatedEventDto.getDuration());
+        }
+        return eventMapper.convertToDto(eventRepository.save(event));
+    }
+
+    public EventDto saveEvent(EventDto eventDto) {
+        return eventMapper.convertToDto(eventRepository.save(eventMapper.convertFromDto(eventDto)));
     }
 
     public void deleteEventById(Integer eventId) {

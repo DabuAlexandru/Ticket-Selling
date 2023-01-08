@@ -1,5 +1,7 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.dto.SeatDto;
+import com.example.ticketselling.mapper.SeatMapper;
 import com.example.ticketselling.model.Location;
 import com.example.ticketselling.model.Seat;
 import com.example.ticketselling.repository.LocationRepository;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -16,41 +19,49 @@ public class SeatService {
     private final SeatRepository seatRepository;
     private final LocationRepository locationRepository;
 
-    public SeatService(SeatRepository seatRepository,
-                       LocationRepository locationRepository) {
+    private final SeatMapper seatMapper;
+
+    public SeatService(SeatRepository seatRepository, LocationRepository locationRepository, SeatMapper seatMapper) {
         this.seatRepository = seatRepository;
         this.locationRepository = locationRepository;
+        this.seatMapper = seatMapper;
     }
 
-    public List<Seat> retrieveSeats() {
-        return seatRepository.findAll();
+    public List<SeatDto> retrieveSeats() {
+        return seatRepository.findAll().stream()
+                .map(seatMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 
-    public Seat findSeatById(int SeatId) {
-        return seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException("Seat not found!"));
-    }
-
-    public Seat updateSeat(int SeatId, Seat updatedSeat) {
+    public SeatDto findSeatById(int SeatId) {
         Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException("Seat not found!"));
-        if (!isNull(updatedSeat.getKey())) {
-            seat.setKey(updatedSeat.getKey());
+        return seatMapper.convertToDto(seat);
+    }
+
+    public SeatDto updateSeat(int SeatId, SeatDto updatedSeatDto) {
+        Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException("Seat not found!"));
+        if (!isNull(updatedSeatDto.getKey())) {
+            seat.setKey(updatedSeatDto.getKey());
         }
-        if (!isNull(updatedSeat.getAdditionalKey())) {
-            seat.setAdditionalKey(updatedSeat.getAdditionalKey());
+        if (!isNull(updatedSeatDto.getAdditionalKey())) {
+            seat.setAdditionalKey(updatedSeatDto.getAdditionalKey());
         }
-        if (!isNull(updatedSeat.getLocation())) {
-            Location location = locationRepository.findById(updatedSeat.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));
+        if (!isNull(updatedSeatDto.getLocation())) {
+            Location location = locationRepository.findById(updatedSeatDto.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));
             seat.setLocation(location);
         }
-        return seatRepository.save(seat);
+        return seatMapper.convertToDto(seatRepository.save(seat));
     }
 
-    public Seat saveSeat(Seat seat) {
-        Location location = locationRepository.findById(seat.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));
+    public SeatDto saveSeat(SeatDto seatDto) {
+        Seat seat = seatMapper.convertFromDto(seatDto);
 
-        seat.setLocation(location);
+        if(!isNull(seatDto.getLocation())) {
+            Location location = locationRepository.findById(seatDto.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));
+            seat.setLocation(location);
+        }
 
-        return seatRepository.save(seat);
+        return seatMapper.convertToDto(seatRepository.save(seat));
     }
 
     public void deleteSeatById(Integer seatId) {
