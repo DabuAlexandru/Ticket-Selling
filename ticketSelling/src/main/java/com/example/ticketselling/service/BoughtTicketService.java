@@ -1,5 +1,6 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.BoughtTicketConstants;
 import com.example.ticketselling.dto.BoughtTicketDto;
 import com.example.ticketselling.mapper.BoughtTicketMapper;
 import com.example.ticketselling.model.Client;
@@ -40,12 +41,12 @@ public class BoughtTicketService {
     }
 
     public BoughtTicketDto findBoughtTicketById(int BoughtTicketId) {
-        BoughtTicket boughtTicket =  boughtTicketRepository.findById(BoughtTicketId).orElseThrow(() -> new RuntimeException("BoughtTicket not found!"));
+        BoughtTicket boughtTicket =  boughtTicketRepository.findById(BoughtTicketId).orElseThrow(() -> new RuntimeException(BoughtTicketConstants.BOUGHT_TICKET_NOT_FOUND_MESSAGE));
         return boughtTicketMapper.convertToDto(boughtTicket);
     }
 
     public BoughtTicketDto updateBoughtTicket(int BoughtTicketId, BoughtTicketDto updatedBoughtTicketDto) {
-        BoughtTicket boughtTicket = boughtTicketRepository.findById(BoughtTicketId).orElseThrow(() -> new RuntimeException("BoughtTicket not found!"));
+        BoughtTicket boughtTicket = boughtTicketRepository.findById(BoughtTicketId).orElseThrow(() -> new RuntimeException(BoughtTicketConstants.BOUGHT_TICKET_NOT_FOUND_MESSAGE));
         if (!isNull(updatedBoughtTicketDto.getBoughtAt())) {
             boughtTicket.setBoughtAt(updatedBoughtTicketDto.getBoughtAt());
         }

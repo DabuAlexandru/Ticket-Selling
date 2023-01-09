@@ -1,5 +1,6 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.EventConstants;
 import com.example.ticketselling.dto.EventDto;
 import com.example.ticketselling.mapper.EventMapper;
 import com.example.ticketselling.model.Event;
@@ -30,12 +31,12 @@ public class EventService {
     }
 
     public EventDto findEventById(int eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found!"));
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException(EventConstants.EVENT_NOT_FOUND_MESSAGE));
         return eventMapper.convertToDto(event);
     }
 
     public EventDto updateEvent(int eventId, EventDto updatedEventDto) {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found!"));
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException(EventConstants.EVENT_NOT_FOUND_MESSAGE));
         if (!isNull(updatedEventDto.getName())) {
             event.setName(updatedEventDto.getName());
         }

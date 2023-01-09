@@ -1,5 +1,8 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.EventConstants;
+import com.example.ticketselling.constants.EventPlanningConstants;
+import com.example.ticketselling.constants.LocationConstants;
 import com.example.ticketselling.dto.EventPlanningDto;
 import com.example.ticketselling.mapper.EventPlanningMapper;
 import com.example.ticketselling.model.Event;
@@ -41,12 +44,12 @@ public class EventPlanningService {
     }
 
     public EventPlanningDto findEventPlanningById(int EventPlanningId) {
-        EventPlanning eventPlanning = eventPlanningRepository.findById(EventPlanningId).orElseThrow(() -> new RuntimeException("EventPlanning not found!"));
+        EventPlanning eventPlanning = eventPlanningRepository.findById(EventPlanningId).orElseThrow(() -> new RuntimeException(EventPlanningConstants.EVENT_PLANNING_NOT_FOUND_MESSAGE));
         return eventPlanningMapper.convertToDto(eventPlanning);
     }
 
     public EventPlanningDto updateEventPlanning(int EventPlanningId, EventPlanningDto updatedEventPlanningDto) {
-        EventPlanning eventPlanning = eventPlanningRepository.findById(EventPlanningId).orElseThrow(() -> new RuntimeException("EventPlanning not found!"));
+        EventPlanning eventPlanning = eventPlanningRepository.findById(EventPlanningId).orElseThrow(() -> new RuntimeException(EventPlanningConstants.EVENT_PLANNING_NOT_FOUND_MESSAGE));
         if (!isNull(updatedEventPlanningDto.getStartDate())) {
             eventPlanning.setStartDate(updatedEventPlanningDto.getStartDate());
         }
@@ -55,11 +58,11 @@ public class EventPlanningService {
 
     private EventPlanningDto getEventPlanningDtoWithInjectedObjects(EventPlanningDto eventPlanningDto, EventPlanning eventPlanning) {
         if (!isNull(eventPlanningDto.getEvent())) {
-            Event event = eventRepository.findById(eventPlanningDto.getEvent().getId()).orElseThrow(() -> new RuntimeException("Event not found!"));
+            Event event = eventRepository.findById(eventPlanningDto.getEvent().getId()).orElseThrow(() -> new RuntimeException(EventConstants.EVENT_NOT_FOUND_MESSAGE));
             eventPlanning.setEvent(event);
         }
         if (!isNull(eventPlanningDto.getLocation())) {
-            Location location = locationRepository.findById(eventPlanningDto.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));
+            Location location = locationRepository.findById(eventPlanningDto.getLocation().getId()).orElseThrow(() -> new RuntimeException(LocationConstants.LOCATION_NOT_FOUND_MESSAGE));
             eventPlanning.setLocation(location);
         }
         return eventPlanningMapper.convertToDto(eventPlanningRepository.save(eventPlanning));

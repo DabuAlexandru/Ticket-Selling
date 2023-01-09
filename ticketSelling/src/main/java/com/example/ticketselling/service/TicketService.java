@@ -1,5 +1,9 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.EventPlanningConstants;
+import com.example.ticketselling.constants.SeatConstants;
+import com.example.ticketselling.constants.TicketConstants;
+import com.example.ticketselling.constants.TicketTypeConstants;
 import com.example.ticketselling.dto.TicketDto;
 import com.example.ticketselling.mapper.TicketMapper;
 import com.example.ticketselling.model.EventPlanning;
@@ -47,26 +51,26 @@ public class TicketService {
     }
 
     public TicketDto findTicketById(int TicketId) {
-        Ticket ticket = ticketRepository.findById(TicketId).orElseThrow(() -> new RuntimeException("Ticket not found!"));
+        Ticket ticket = ticketRepository.findById(TicketId).orElseThrow(() -> new RuntimeException(TicketConstants.TICKET_NOT_FOUND_MESSAGE));
         return ticketMapper.convertToDto(ticket);
     }
 
     public TicketDto updateTicket(int TicketId, TicketDto updatedTicketDto) {
-        Ticket ticket = ticketRepository.findById(TicketId).orElseThrow(() -> new RuntimeException("Ticket not found!"));
+        Ticket ticket = ticketRepository.findById(TicketId).orElseThrow(() -> new RuntimeException(TicketConstants.TICKET_NOT_FOUND_MESSAGE));
         return getTicketConverted(updatedTicketDto, ticket);
     }
 
     private TicketDto getTicketConverted(TicketDto ticketDto, Ticket ticket) {
         if (!isNull(ticketDto.getTicketType())) {
-            TicketType ticketType = ticketTypeRepository.findById(ticketDto.getTicketType().getId()).orElseThrow(() -> new RuntimeException("TicketType not found!"));
+            TicketType ticketType = ticketTypeRepository.findById(ticketDto.getTicketType().getId()).orElseThrow(() -> new RuntimeException(TicketTypeConstants.TICKET_TYPE_NOT_FOUND_MESSAGE));
             ticket.setTicketType(ticketType);
         }
         if (!isNull(ticketDto.getSeat())) {
-            Seat seat = seatRepository.findById(ticketDto.getSeat().getId()).orElseThrow(() -> new RuntimeException("Seat not found!"));
+            Seat seat = seatRepository.findById(ticketDto.getSeat().getId()).orElseThrow(() -> new RuntimeException(SeatConstants.SEAT_NOT_FOUND_MESSAGE));
             ticket.setSeat(seat);
         }
         if (!isNull(ticketDto.getEventPlanning())) {
-            EventPlanning eventPlanning = eventPlanningRepository.findById(ticketDto.getEventPlanning().getId()).orElseThrow(() -> new RuntimeException("EventPlanning not found!"));
+            EventPlanning eventPlanning = eventPlanningRepository.findById(ticketDto.getEventPlanning().getId()).orElseThrow(() -> new RuntimeException(EventPlanningConstants.EVENT_PLANNING_NOT_FOUND_MESSAGE));
             ticket.setEventPlanning(eventPlanning);
         }
         return ticketMapper.convertToDto(ticketRepository.save(ticket));

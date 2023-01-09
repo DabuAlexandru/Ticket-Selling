@@ -1,5 +1,6 @@
 package com.example.ticketselling.dto;
 
+import com.example.ticketselling.constants.SeatConstants;
 import com.example.ticketselling.model.Location;
 import lombok.*;
 
@@ -15,10 +16,10 @@ public class SeatDto {
 
     private int id;
 
-    @NotEmpty(message = "A seat can't exist outside of a location")
+    @NotEmpty(message = SeatConstants.LOCATION_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private LocationDto location;
 
-    @NotBlank(message = "A seat should have a comprehensive number")
+    @NotBlank(message = SeatConstants.SEAT_NO_NOT_BLANK_CONSTRAINT_MESSAGE)
     private String seatNo;
 
     private String additionalInfo;

@@ -1,5 +1,6 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.ClientConstants;
 import com.example.ticketselling.dto.ClientDto;
 import com.example.ticketselling.mapper.ClientMapper;
 import com.example.ticketselling.model.Client;
@@ -30,12 +31,12 @@ public class ClientService {
     }
 
     public ClientDto findClientById(int clientId) {
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found!"));
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException(ClientConstants.CLIENT_NOT_FOUND_MESSAGE));
         return clientMapper.convertToDto(client);
     }
 
     public ClientDto updateClient(int clientId, ClientDto updatedClientDto) {
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found!"));
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException(ClientConstants.CLIENT_NOT_FOUND_MESSAGE));
         if (!isNull(updatedClientDto.getFirstName())) {
             client.setFirstName(updatedClientDto.getFirstName());
         }

@@ -1,5 +1,6 @@
 package com.example.ticketselling.controller;
 
+import com.example.ticketselling.constants.SeatConstants;
 import com.example.ticketselling.dto.SeatDto;
 import com.example.ticketselling.service.SeatService;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,6 @@ public class SeatController {
     @DeleteMapping("/delete/{seatId}")
     public ResponseEntity<String> deleteSeat(@PathVariable int seatId) {
         seatService.deleteSeatById(seatId);
-        return ResponseEntity.ok().body("Seat successfully deleted!");
+        return ResponseEntity.ok().body(SeatConstants.DELETE_OK_MESSAGE);
     }
 }

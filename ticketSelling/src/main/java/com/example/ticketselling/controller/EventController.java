@@ -1,5 +1,6 @@
 package com.example.ticketselling.controller;
 
+import com.example.ticketselling.constants.EventConstants;
 import com.example.ticketselling.dto.EventDto;
 import com.example.ticketselling.service.EventService;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,6 @@ public class EventController {
     @DeleteMapping("/delete/{eventId}")
     public ResponseEntity<String> deleteEvent(@PathVariable int eventId) {
         eventService.deleteEventById(eventId);
-        return ResponseEntity.ok().body("Event successfully deleted!");
+        return ResponseEntity.ok().body(EventConstants.DELETED_OK_MESSAGE);
     }
 }

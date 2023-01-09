@@ -1,5 +1,6 @@
 package com.example.ticketselling.dto;
 
+import com.example.ticketselling.constants.EventConstants;
 import lombok.*;
 
 import javax.validation.constraints.Min;
@@ -16,9 +17,9 @@ public class EventDto {
 
     private String description;
 
-    @NotBlank(message="A valid event should have a name")
+    @NotBlank(message = EventConstants.NAME_NOT_BLANK_CONSTRAINT_MESSAGE)
     private String name;
 
-    @Min(value=30, message="A valid event should have a duration of at least 30 minutes!")
+    @Min(value = EventConstants.DURATION_MIN_CONSTRAINT_VALUE, message = EventConstants.DURATION_MIN_CONSTRAINT_MESSAGE)
     private int duration;
 }

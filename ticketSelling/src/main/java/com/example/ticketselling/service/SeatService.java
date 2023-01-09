@@ -1,5 +1,7 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.LocationConstants;
+import com.example.ticketselling.constants.SeatConstants;
 import com.example.ticketselling.dto.SeatDto;
 import com.example.ticketselling.mapper.SeatMapper;
 import com.example.ticketselling.model.Location;
@@ -34,12 +36,12 @@ public class SeatService {
     }
 
     public SeatDto findSeatById(int SeatId) {
-        Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException("Seat not found!"));
+        Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException(SeatConstants.SEAT_NOT_FOUND_MESSAGE));
         return seatMapper.convertToDto(seat);
     }
 
     public SeatDto updateSeat(int SeatId, SeatDto updatedSeatDto) {
-        Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException("Seat not found!"));
+        Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException(SeatConstants.SEAT_NOT_FOUND_MESSAGE));
         if (!isNull(updatedSeatDto.getSeatNo())) {
             seat.setSeatNo(updatedSeatDto.getSeatNo());
         }
@@ -47,7 +49,7 @@ public class SeatService {
             seat.setAdditionalInfo(updatedSeatDto.getAdditionalInfo());
         }
         if (!isNull(updatedSeatDto.getLocation())) {
-            Location location = locationRepository.findById(updatedSeatDto.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));
+            Location location = locationRepository.findById(updatedSeatDto.getLocation().getId()).orElseThrow(() -> new RuntimeException(LocationConstants.LOCATION_NOT_FOUND_MESSAGE));
             seat.setLocation(location);
         }
         return seatMapper.convertToDto(seatRepository.save(seat));

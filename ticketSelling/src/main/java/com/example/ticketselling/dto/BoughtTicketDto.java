@@ -1,5 +1,6 @@
 package com.example.ticketselling.dto;
 
+import com.example.ticketselling.constants.BoughtTicketConstants;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,12 +16,12 @@ public class BoughtTicketDto {
 
     private int id;
 
-    @NotEmpty(message = "The ticket should not be null for a bought ticket record")
+    @NotEmpty(message = BoughtTicketConstants.TICKET_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private TicketDto ticket;
 
-    @NotEmpty(message = "The client should not be null for a bought ticket record")
+    @NotEmpty(message = BoughtTicketConstants.CLIENT_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private ClientDto client;
 
-    @NotNull(message = "The boughtAt should not be null for a bought ticket record")
+    @NotNull(message = BoughtTicketConstants.BOUGHT_AT_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private Date boughtAt;
 }

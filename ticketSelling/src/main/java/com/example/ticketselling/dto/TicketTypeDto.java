@@ -1,5 +1,6 @@
 package com.example.ticketselling.dto;
 
+import com.example.ticketselling.constants.TicketTypeConstants;
 import lombok.*;
 
 import javax.validation.constraints.Min;
@@ -15,12 +16,12 @@ public class TicketTypeDto {
 
     private int id;
 
-    @NotBlank(message = "A ticket type should have a title")
+    @NotBlank(message = TicketTypeConstants.TITLE_NOT_BLANK_CONSTRAINT_MESSAGE)
     private String title;
 
-    @Min(value = 0, message = "The price should be a positive real number")
+    @Min(value = 0, message = TicketTypeConstants.PRICE_MIN_CONSTRAINT_MESSAGE)
     private float price;
 
-    @NotEmpty(message = "A ticket type is defined by the event")
+    @NotEmpty(message = TicketTypeConstants.EVENT_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private EventDto event;
 }

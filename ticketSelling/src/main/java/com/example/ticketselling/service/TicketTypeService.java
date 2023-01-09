@@ -1,5 +1,7 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.EventConstants;
+import com.example.ticketselling.constants.TicketTypeConstants;
 import com.example.ticketselling.dto.TicketTypeDto;
 import com.example.ticketselling.mapper.TicketTypeMapper;
 import com.example.ticketselling.model.Event;
@@ -36,11 +38,11 @@ public class TicketTypeService {
     }
 
     public TicketType findTicketTypeById(int TicketTypeId) {
-        return ticketTypeRepository.findById(TicketTypeId).orElseThrow(() -> new RuntimeException("TicketType not found!"));
+        return ticketTypeRepository.findById(TicketTypeId).orElseThrow(() -> new RuntimeException(TicketTypeConstants.TICKET_TYPE_NOT_FOUND_MESSAGE));
     }
 
     public TicketTypeDto updateTicketType(int TicketTypeId, TicketTypeDto updatedTicketTypeDto) {
-        TicketType ticketType = ticketTypeRepository.findById(TicketTypeId).orElseThrow(() -> new RuntimeException("TicketType not found!"));
+        TicketType ticketType = ticketTypeRepository.findById(TicketTypeId).orElseThrow(() -> new RuntimeException(TicketTypeConstants.TICKET_TYPE_NOT_FOUND_MESSAGE));
         if (!isNull(updatedTicketTypeDto.getTitle())) {
             ticketType.setTitle(updatedTicketTypeDto.getTitle());
         }
@@ -48,7 +50,7 @@ public class TicketTypeService {
             ticketType.setPrice(updatedTicketTypeDto.getPrice());
         }
         if (!isNull(updatedTicketTypeDto.getEvent())) {
-            Event event = eventRepository.findById(updatedTicketTypeDto.getEvent().getId()).orElseThrow(() -> new RuntimeException("Event not found!"));
+            Event event = eventRepository.findById(updatedTicketTypeDto.getEvent().getId()).orElseThrow(() -> new RuntimeException(EventConstants.EVENT_NOT_FOUND_MESSAGE));
             ticketType.setEvent(event);
         }
         return ticketTypeMapper.convertToDto(ticketTypeRepository.save(ticketType));
@@ -57,8 +59,8 @@ public class TicketTypeService {
     public TicketTypeDto saveTicketType(TicketTypeDto ticketTypeDto) {
         TicketType ticketType = ticketTypeMapper.convertFromDto(ticketTypeDto);
 
-        if(!isNull(ticketTypeDto.getEvent())) {
-            Event event = eventRepository.findById(ticketTypeDto.getEvent().getId()).orElseThrow(() -> new RuntimeException("Event not found!"));
+        if (!isNull(ticketTypeDto.getEvent())) {
+            Event event = eventRepository.findById(ticketTypeDto.getEvent().getId()).orElseThrow(() -> new RuntimeException(EventConstants.EVENT_NOT_FOUND_MESSAGE));
             ticketType.setEvent(event);
         }
 

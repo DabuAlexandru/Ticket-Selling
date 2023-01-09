@@ -1,6 +1,6 @@
 package com.example.ticketselling.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @ToString

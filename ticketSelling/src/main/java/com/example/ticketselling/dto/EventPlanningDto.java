@@ -1,7 +1,9 @@
 package com.example.ticketselling.dto;
 
+import com.example.ticketselling.constants.EventPlanningConstants;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -14,12 +16,12 @@ public class EventPlanningDto {
 
     private int id;
 
-    @NotNull(message = "An event planning should have a valid location")
+    @NotEmpty(message = EventPlanningConstants.LOCATION_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private LocationDto location;
 
-    @NotNull(message = "An event planning should have a valid event")
+    @NotEmpty(message = EventPlanningConstants.EVENT_NOT_EMPTY_CONSTRAINT_MESSAGE)
     private EventDto event;
 
-    @NotNull(message = "An event planning should have a valid start date")
+    @NotNull(message = EventPlanningConstants.START_DATE_NOT_NULL_CONSTRAINT_MESSAGE)
     private Date startDate;
 }

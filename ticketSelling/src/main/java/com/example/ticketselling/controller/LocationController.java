@@ -1,5 +1,6 @@
 package com.example.ticketselling.controller;
 
+import com.example.ticketselling.constants.LocationConstants;
 import com.example.ticketselling.dto.LocationDto;
 import com.example.ticketselling.service.LocationService;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,6 @@ public class LocationController {
     @DeleteMapping("/delete/{locationId}")
     public ResponseEntity<String> deleteLocation(@PathVariable int locationId) {
         locationService.deleteLocationById(locationId);
-        return ResponseEntity.ok().body("Location successfully deleted!");
+        return ResponseEntity.ok().body(LocationConstants.DELETE_OK_MESSAGE);
     }
 }
