@@ -35,10 +35,12 @@ public class SeatService {
                 .collect(Collectors.toList());
     }
 
-    public SeatDto findSeatById(int SeatId) {
-        Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException(SeatConstants.SEAT_NOT_FOUND_MESSAGE));
-        return seatMapper.convertToDto(seat);
-    }
+//    public List<SeatDto> retrieveSeatsByLocationId(int locationId) {
+//        return seatRepository.findAll().stream()
+//                .filter(seat -> seat.getLocation().getId() == locationId)
+//                .map(seatMapper::convertToDto)
+//                .collect(Collectors.toList());
+//    }
 
     public SeatDto updateSeat(int SeatId, SeatDto updatedSeatDto) {
         Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException(SeatConstants.SEAT_NOT_FOUND_MESSAGE));

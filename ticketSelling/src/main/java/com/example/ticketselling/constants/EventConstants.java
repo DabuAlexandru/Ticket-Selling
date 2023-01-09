@@ -7,5 +7,5 @@ public class EventConstants {
 
     public static final String EVENT_NOT_FOUND_MESSAGE = "Event not found!";
 
-    public static final String DELETED_OK_MESSAGE = "Event successfully deleted!";
+    public static final String DELETE_OK_MESSAGE = "Event successfully deleted!";
 }

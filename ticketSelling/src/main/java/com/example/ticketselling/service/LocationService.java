@@ -29,10 +29,10 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
-    public LocationDto findLocationById(int locationId) {
-        Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException(LocationConstants.LOCATION_NOT_FOUND_MESSAGE));
-        return locationMapper.convertToDto(location);
-    }
+//    public LocationDto getLocationSeatingReport(int locationId) {
+//        Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException(LocationConstants.LOCATION_NOT_FOUND_MESSAGE));
+//        return locationMapper.convertToDto(location);
+//    }
 
     public LocationDto updateLocation(int locationId, LocationDto updatedLocation) {
         Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException(LocationConstants.LOCATION_NOT_FOUND_MESSAGE));
@@ -55,7 +55,9 @@ public class LocationService {
         return locationMapper.convertToDto(locationRepository.save(locationMapper.convertFromDto(location)));
     }
 
-    public void deleteLocationById(Integer locationId) {
-        locationRepository.deleteById(locationId);
+    public String deleteLocationById(Integer locationId) {
+        Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException(LocationConstants.LOCATION_NOT_FOUND_MESSAGE));
+        locationRepository.deleteById(location.getId());
+        return LocationConstants.DELETE_OK_MESSAGE;
     }
 }

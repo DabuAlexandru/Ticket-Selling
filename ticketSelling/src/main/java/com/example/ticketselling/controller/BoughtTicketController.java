@@ -23,6 +23,11 @@ public class BoughtTicketController {
         return ResponseEntity.ok().body(boughtTicketService.retrieveBoughtTickets());
     }
 
+    @GetMapping("/byClient")
+    public ResponseEntity<List<BoughtTicketDto>> retrieveBoughtTicketsByClientId(@RequestParam(name = "clientId") int clientId) {
+        return ResponseEntity.ok().body(boughtTicketService.retrieveBoughtTicketsByClientId(clientId));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<BoughtTicketDto> addBoughtTicket(@RequestBody BoughtTicketDto boughtTicketDto) {
         return ResponseEntity.ok().body(boughtTicketService.saveBoughtTicket(boughtTicketDto));

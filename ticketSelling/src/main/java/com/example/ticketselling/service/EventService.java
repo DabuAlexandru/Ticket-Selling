@@ -1,8 +1,10 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.ClientConstants;
 import com.example.ticketselling.constants.EventConstants;
 import com.example.ticketselling.dto.EventDto;
 import com.example.ticketselling.mapper.EventMapper;
+import com.example.ticketselling.model.Client;
 import com.example.ticketselling.model.Event;
 import com.example.ticketselling.repository.EventRepository;
 import org.springframework.stereotype.Service;
@@ -53,7 +55,9 @@ public class EventService {
         return eventMapper.convertToDto(eventRepository.save(eventMapper.convertFromDto(eventDto)));
     }
 
-    public void deleteEventById(Integer eventId) {
-        eventRepository.deleteById(eventId);
+    public String deleteEventById(Integer eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException(EventConstants.EVENT_NOT_FOUND_MESSAGE));
+        eventRepository.deleteById(event.getId());
+        return EventConstants.DELETE_OK_MESSAGE;
     }
 }

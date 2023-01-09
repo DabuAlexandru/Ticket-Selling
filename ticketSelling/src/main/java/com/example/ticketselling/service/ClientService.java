@@ -1,9 +1,11 @@
 package com.example.ticketselling.service;
 
 import com.example.ticketselling.constants.ClientConstants;
+import com.example.ticketselling.constants.LocationConstants;
 import com.example.ticketselling.dto.ClientDto;
 import com.example.ticketselling.mapper.ClientMapper;
 import com.example.ticketselling.model.Client;
+import com.example.ticketselling.model.Location;
 import com.example.ticketselling.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +61,9 @@ public class ClientService {
         return clientMapper.convertToDto(clientRepository.save(clientMapper.convertFromDto(clientDto)));
     }
 
-    public void deleteClientById(Integer clientId) {
-        clientRepository.deleteById(clientId);
+    public String deleteClientById(Integer clientId) {
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException(ClientConstants.CLIENT_NOT_FOUND_MESSAGE));
+        clientRepository.deleteById(client.getId());
+        return ClientConstants.DELETE_OK_MESSAGE;
     }
 }

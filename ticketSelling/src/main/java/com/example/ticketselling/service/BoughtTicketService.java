@@ -40,13 +40,15 @@ public class BoughtTicketService {
                 .collect(Collectors.toList());
     }
 
-    public BoughtTicketDto findBoughtTicketById(int BoughtTicketId) {
-        BoughtTicket boughtTicket =  boughtTicketRepository.findById(BoughtTicketId).orElseThrow(() -> new RuntimeException(BoughtTicketConstants.BOUGHT_TICKET_NOT_FOUND_MESSAGE));
-        return boughtTicketMapper.convertToDto(boughtTicket);
+    public List<BoughtTicketDto> retrieveBoughtTicketsByClientId(int clientId) {
+        return boughtTicketRepository.findAll()
+                .stream().filter(boughtTicket -> boughtTicket.getClient().getId() == clientId)
+                .map(boughtTicketMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 
-    public BoughtTicketDto updateBoughtTicket(int BoughtTicketId, BoughtTicketDto updatedBoughtTicketDto) {
-        BoughtTicket boughtTicket = boughtTicketRepository.findById(BoughtTicketId).orElseThrow(() -> new RuntimeException(BoughtTicketConstants.BOUGHT_TICKET_NOT_FOUND_MESSAGE));
+    public BoughtTicketDto updateBoughtTicket(int boughtTicketId, BoughtTicketDto updatedBoughtTicketDto) {
+        BoughtTicket boughtTicket = boughtTicketRepository.findById(boughtTicketId).orElseThrow(() -> new RuntimeException(BoughtTicketConstants.BOUGHT_TICKET_NOT_FOUND_MESSAGE));
         if (!isNull(updatedBoughtTicketDto.getBoughtAt())) {
             boughtTicket.setBoughtAt(updatedBoughtTicketDto.getBoughtAt());
         }

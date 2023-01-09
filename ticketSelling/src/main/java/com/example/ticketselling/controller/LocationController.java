@@ -3,6 +3,7 @@ package com.example.ticketselling.controller;
 import com.example.ticketselling.constants.LocationConstants;
 import com.example.ticketselling.dto.LocationDto;
 import com.example.ticketselling.service.LocationService;
+import com.example.ticketselling.utils.LocationSeatingReport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,11 @@ public class LocationController {
         return ResponseEntity.ok().body(locationService.retrieveLocations());
     }
 
+//    @GetMapping("/load/{locationId}")
+//    public LocationSeatingReport getLocationSeatingReport(@RequestParam int locationId) {
+//        return ResponseEntity.ok().body(locationService.)
+//    }
+
     @PostMapping("/add")
     public ResponseEntity<LocationDto> addLocation(@Valid @RequestBody LocationDto locationDto) {
         System.out.println(locationDto);
@@ -37,7 +43,7 @@ public class LocationController {
 
     @DeleteMapping("/delete/{locationId}")
     public ResponseEntity<String> deleteLocation(@PathVariable int locationId) {
-        locationService.deleteLocationById(locationId);
-        return ResponseEntity.ok().body(LocationConstants.DELETE_OK_MESSAGE);
+        String message = locationService.deleteLocationById(locationId);
+        return ResponseEntity.ok().body(message);
     }
 }

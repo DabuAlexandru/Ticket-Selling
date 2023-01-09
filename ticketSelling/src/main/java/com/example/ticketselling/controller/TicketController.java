@@ -23,6 +23,11 @@ public class TicketController {
         return ResponseEntity.ok().body(ticketService.retrieveTickets());
     }
 
+    @GetMapping("/view/{ticketId}")
+    public ResponseEntity<TicketDto> viewTicket(@PathVariable int ticketId) {
+        return ResponseEntity.ok().body(ticketService.findTicketById(ticketId));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<TicketDto> addTicket(@RequestBody TicketDto ticketDto) {
         return ResponseEntity.ok().body(ticketService.saveTicket(ticketDto));

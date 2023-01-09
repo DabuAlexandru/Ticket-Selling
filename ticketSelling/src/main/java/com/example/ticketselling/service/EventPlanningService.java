@@ -1,10 +1,12 @@
 package com.example.ticketselling.service;
 
+import com.example.ticketselling.constants.ClientConstants;
 import com.example.ticketselling.constants.EventConstants;
 import com.example.ticketselling.constants.EventPlanningConstants;
 import com.example.ticketselling.constants.LocationConstants;
 import com.example.ticketselling.dto.EventPlanningDto;
 import com.example.ticketselling.mapper.EventPlanningMapper;
+import com.example.ticketselling.model.Client;
 import com.example.ticketselling.model.Event;
 import com.example.ticketselling.model.Location;
 import com.example.ticketselling.model.EventPlanning;
@@ -73,7 +75,9 @@ public class EventPlanningService {
         return getEventPlanningDtoWithInjectedObjects(eventPlanningDto, eventPlanning);
     }
 
-    public void deleteEventPlanningById(Integer eventPlanningId) {
-        eventPlanningRepository.deleteById(eventPlanningId);
+    public String deleteEventPlanningById(Integer eventPlanningId) {
+        EventPlanning eventPlanning = eventPlanningRepository.findById(eventPlanningId).orElseThrow(() -> new RuntimeException(EventPlanningConstants.EVENT_PLANNING_NOT_FOUND_MESSAGE));
+        eventPlanningRepository.deleteById(eventPlanning.getId());
+        return EventPlanningConstants.DELETE_OK_MESSAGE;
     }
 }
