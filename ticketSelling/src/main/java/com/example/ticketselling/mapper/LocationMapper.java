@@ -2,7 +2,11 @@ package com.example.ticketselling.mapper;
 
 import com.example.ticketselling.dto.LocationDto;
 import com.example.ticketselling.model.Location;
+import com.example.ticketselling.model.Seat;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 

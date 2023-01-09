@@ -3,6 +3,9 @@ package com.example.ticketselling.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ToString
 @Getter
 @Setter
@@ -22,4 +25,11 @@ public class Location {
     private String name;
 
     private int maxCapacity;
+//
+//    @OneToMany(
+//            mappedBy = "location",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<Seat> seats = new ArrayList<>();
 }

@@ -15,15 +15,11 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String seatNo;
+
+    private String additionalInfo;
+
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
-
-    private String key;
-
-    /**
-     some event locations can have rows, levels
-     the additional key provides an extra layer of separation for clarity
-     */
-    private String additionalKey;
 }

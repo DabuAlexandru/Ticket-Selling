@@ -40,11 +40,11 @@ public class SeatService {
 
     public SeatDto updateSeat(int SeatId, SeatDto updatedSeatDto) {
         Seat seat = seatRepository.findById(SeatId).orElseThrow(() -> new RuntimeException("Seat not found!"));
-        if (!isNull(updatedSeatDto.getKey())) {
-            seat.setKey(updatedSeatDto.getKey());
+        if (!isNull(updatedSeatDto.getSeatNo())) {
+            seat.setSeatNo(updatedSeatDto.getSeatNo());
         }
-        if (!isNull(updatedSeatDto.getAdditionalKey())) {
-            seat.setAdditionalKey(updatedSeatDto.getAdditionalKey());
+        if (!isNull(updatedSeatDto.getAdditionalInfo())) {
+            seat.setAdditionalInfo(updatedSeatDto.getAdditionalInfo());
         }
         if (!isNull(updatedSeatDto.getLocation())) {
             Location location = locationRepository.findById(updatedSeatDto.getLocation().getId()).orElseThrow(() -> new RuntimeException("Location not found!"));

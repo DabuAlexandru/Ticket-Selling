@@ -33,7 +33,7 @@ public class EventPlanningController {
     }
 
     @DeleteMapping("/delete/{eventPlanningId}")
-    public ResponseEntity<String> addEventPlanning(@PathVariable int eventPlanningId) {
+    public ResponseEntity<String> deleteEventPlanning(@PathVariable int eventPlanningId) {
         eventPlanningService.deleteEventPlanningById(eventPlanningId);
         return ResponseEntity.ok().body("EventPlanning successfully deleted!");
     }

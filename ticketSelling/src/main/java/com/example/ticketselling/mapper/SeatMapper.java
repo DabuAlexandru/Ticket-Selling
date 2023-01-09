@@ -24,9 +24,9 @@ public class SeatMapper {
 
         return new Seat(
                 seatDto.getId(),
-                locationMapper.convertFromDto(seatDto.getLocation()),
-                seatDto.getKey(),
-                seatDto.getAdditionalKey()
+                seatDto.getAdditionalInfo(),
+                seatDto.getSeatNo(),
+                locationMapper.convertFromDto(seatDto.getLocation())
         );
     }
 
@@ -38,8 +38,8 @@ public class SeatMapper {
         return new SeatDto(
                 seat.getId(),
                 locationMapper.convertToDto(seat.getLocation()),
-                seat.getKey(),
-                seat.getAdditionalKey()
+                seat.getSeatNo(),
+                seat.getAdditionalInfo()
         );
     }
 }

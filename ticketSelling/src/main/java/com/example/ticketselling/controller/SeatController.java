@@ -33,7 +33,7 @@ public class SeatController {
     }
 
     @DeleteMapping("/delete/{seatId}")
-    public ResponseEntity<String> addSeat(@PathVariable int seatId) {
+    public ResponseEntity<String> deleteSeat(@PathVariable int seatId) {
         seatService.deleteSeatById(seatId);
         return ResponseEntity.ok().body("Seat successfully deleted!");
     }

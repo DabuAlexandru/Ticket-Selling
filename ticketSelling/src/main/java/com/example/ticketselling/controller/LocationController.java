@@ -5,6 +5,7 @@ import com.example.ticketselling.service.LocationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,8 @@ public class LocationController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<LocationDto> addLocation(@RequestBody LocationDto locationDto) {
+    public ResponseEntity<LocationDto> addLocation(@Valid @RequestBody LocationDto locationDto) {
+        System.out.println(locationDto);
         return ResponseEntity.ok().body(locationService.saveLocation(locationDto));
     }
 
@@ -33,7 +35,7 @@ public class LocationController {
     }
 
     @DeleteMapping("/delete/{locationId}")
-    public ResponseEntity<String> addLocation(@PathVariable int locationId) {
+    public ResponseEntity<String> deleteLocation(@PathVariable int locationId) {
         locationService.deleteLocationById(locationId);
         return ResponseEntity.ok().body("Location successfully deleted!");
     }

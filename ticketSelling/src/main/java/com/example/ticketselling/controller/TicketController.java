@@ -33,7 +33,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/delete/{ticketId}")
-    public ResponseEntity<String> addTicket(@PathVariable int ticketId) {
+    public ResponseEntity<String> deleteTicket(@PathVariable int ticketId) {
         ticketService.deleteTicketById(ticketId);
         return ResponseEntity.ok().body("Ticket successfully deleted!");
     }
